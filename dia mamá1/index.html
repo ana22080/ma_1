@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Mamá 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --crema:#f8dff3;
+    --texto:#5d4037;
+    --oro:#d4a017;
+    --rosa:#d98989;
+    --verde:#4caf50;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:linear-gradient(135deg,#ececec,#d8d8d8);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins', sans-serif;
+}
+
+/* ========================= */
+/* PANTALLA INICIAL */
+/* ========================= */
+
+#splash{
+    position:fixed;
+    inset:0;
+    background:var(--crema);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    z-index:9999;
+    transition:1s;
+}
+
+#splash h1{
+    font-size:4rem;
+    color:var(--texto);
+    margin-bottom:10px;
+    font-family:'Playfair Display', serif;
+}
+
+#splash p{
+    color:#8d6e63;
+    font-size:1.2rem;
+    margin-bottom:40px;
+}
+
+.btn{
+    padding:18px 55px;
+    border:none;
+    border-radius:50px;
+
+    background:linear-gradient(135deg,#eab0db,#e73ec8);
+
+    color:white;
+    font-size:1.2rem;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 25px rgba(212,160,23,0.4);
+
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+/* ========================= */
+/* TARJETA */
+/* ========================= */
+
+.card{
+
+    width:1150px;
+    height:680px;
+
+    background:var(--crema);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    display:none;
+
+    box-shadow:
+    0 30px 70px rgba(0,0,0,0.25);
+
+}
+
+/* DECORACIÓN */
+
+.linea-top,
+.linea-bottom{
+
+    position:absolute;
+
+    width:100%;
+    height:90px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:2rem;
+    letter-spacing:10px;
+
+    color:#d4a017;
+
+    z-index:100;
+}
+
+.linea-top{
+    top:0;
+}
+
+.linea-bottom{
+    bottom:0;
+    transform:rotate(180deg);
+}
+
+/* CONTENIDO */
+
+.container{
+
+    width:100%;
+    height:100%;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    padding:120px 70px;
+
+    gap:50px;
+}
+
+/* ========================= */
+/* FOTO */
+/* ========================= */
+
+.photo-section{
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.photo-frame{
+
+    width:300px;
+    height:420px;
+
+    background:white;
+
+    padding:12px;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+
+    z-index:10;
+}
+
+.photo-frame img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:10px;
+}
+
+/* ========================= */
+/* RAMO AUTOMÁTICO */
+/* ========================= */
+
+.auto-bouquet{
+
+    position:absolute;
+
+    bottom:20px;
+    left:0;
+
+    width:260px;
+    height:320px;
+
+    z-index:20;
+}
+
+.auto-stem{
+
+    position:absolute;
+
+    width:4px;
+
+    background:var(--verde);
+
+    bottom:0;
+
+    transform-origin:bottom;
+
+    border-radius:10px;
+
+    opacity:0;
+
+    animation:growStem 1s forwards;
+}
+
+.auto-flower{
+
+    position:absolute;
+
+    opacity:0;
+
+    animation:bloom 1s forwards;
+
+    filter:drop-shadow(0 0 8px rgba(0,0,0,0.15));
+}
+
+/* ========================= */
+/* TEXTO */
+/* ========================= */
+
+.content{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.message{
+
+    background:rgba(255,255,255,0.55);
+
+    backdrop-filter:blur(6px);
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.08);
+
+    z-index:10;
+}
+
+.message h2{
+
+    font-size:3rem;
+
+    color:var(--texto);
+
+    margin-bottom:20px;
+
+    font-family:'Playfair Display', serif;
+}
+
+.message p{
+
+    font-size:1.2rem;
+
+    line-height:2;
+
+    color:#6d4c41;
+}
+
+/* ========================= */
+/* FLORES FLOTANTES */
+/* ========================= */
+
+.floating-flower{
+
+    position:absolute;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    animation:floatFlower linear infinite;
+
+    filter:drop-shadow(0 0 10px rgba(255,182,193,0.6));
+}
+
+/* BRILLOS */
+
+.sparkle{
+
+    position:absolute;
+
+    color:#ffd54f;
+
+    pointer-events:none;
+
+    animation:sparkleAnim linear infinite;
+
+    opacity:0;
+}
+
+/* ========================= */
+/* ANIMACIONES */
+/* ========================= */
+
+@keyframes bloom{
+
+    from{
+        transform:scale(0);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes growStem{
+
+    from{
+        height:0;
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes floatFlower{
+
+    0%{
+        transform:
+        translateY(120px)
+        rotate(0deg);
+
+        opacity:0;
+    }
+
+    20%{
+        opacity:0.8;
+    }
+
+    100%{
+        transform:
+        translateY(-600px)
+        rotate(360deg);
+
+        opacity:0;
+    }
+}
+
+@keyframes sparkleAnim{
+
+    0%{
+        transform:
+        translateY(50px)
+        scale(0);
+
+        opacity:0;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateY(-250px)
+        scale(1.5);
+
+        opacity:0;
+    }
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:1000px){
+
+    body{
+        overflow:auto;
+    }
+
+    .card{
+        width:95%;
+        height:auto;
+    }
+
+    .container{
+
+        grid-template-columns:1fr;
+
+        padding:120px 30px;
+    }
+
+    .photo-frame{
+
+        width:240px;
+        height:340px;
+    }
+
+    .message h2{
+        font-size:2.2rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ========================= -->
+<!-- PANTALLA INICIAL -->
+<!-- ========================= -->
+
+<div id="splash">
+
+    <h1>Para Mamá 💖</h1>
+
+    <p>Una sorpresa hecha con amor</p>
+
+    <button class="btn" onclick="abrirCarta()">
+        Ver Regalo ✨
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- TARJETA -->
+<!-- ========================= -->
+
+<div class="card" id="card">
+
+    <!-- DECORACIÓN -->
+
+    <div class="linea-top">
+        🌸 ✨ 🌼 💖 🌻 ✨ 🌸 💖 🌼
+    </div>
+
+    <div class="linea-bottom">
+        🌸 ✨ 🌼 💖 🌻 ✨ 🌸 💖 🌼
+    </div>
+
+    <!-- CONTENIDO -->
+
+    <div class="container">
+
+        <!-- FOTO -->
+
+        <div class="photo-section">
+
+            <div class="photo-frame">
+
+                <!-- CAMBIA mama.jpg -->
+
+                <img
+                src="mama.jpg"
+                alt="Mamá"
+                onerror="this.src='https://via.placeholder.com/400x500?text=Agrega+mama.jpg'">
+
+            </div>
+
+            <!-- RAMO -->
+
+            <div class="auto-bouquet" id="bouquet"></div>
+
+        </div>
+
+        <!-- MENSAJE -->
+
+        <div class="content" id="content">
+
+            <div class="message">
+
+                <h2>Para la mejor Mamá 💖</h2>
+
+                <p>
+
+                    Gracias por estar siempre conmigo,
+                    por cuidarme, apoyarme
+                    y ser incondicional.
+
+                    <br><br>
+
+                    Si pudiera elegir mil veces,
+                    siempre te elegiría a ti
+                    como mi mamá 🌸
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* ABRIR TARJETA */
+/* ========================= */
+
+function abrirCarta(){
+
+    const splash =
+    document.getElementById("splash");
+
+    splash.style.opacity = "0";
+
+    setTimeout(()=>{
+
+        splash.style.display = "none";
+
+        document.getElementById("card").style.display = "block";
+
+        crearFlores();
+        crearRamo();
+
+    },1000);
+
+}
+
+/* ========================= */
+/* FLORES FLOTANTES */
+/* ========================= */
+
+function crearFlores(){
+
+    const content =
+    document.getElementById("content");
+
+    const emojis =
+    ["🌸","🌼","🌻","💖","✨","🌺","💐"];
+
+    /* MUCHAS FLORES */
+
+    setInterval(()=>{
+
+        const flower =
+        document.createElement("div");
+
+        flower.classList.add("floating-flower");
+
+        flower.innerHTML =
+        emojis[Math.floor(Math.random()*emojis.length)];
+
+        flower.style.left =
+        Math.random()*100 + "%";
+
+        flower.style.bottom =
+        "-50px";
+
+        flower.style.fontSize =
+        (Math.random()*30 + 18) + "px";
+
+        flower.style.animationDuration =
+        (Math.random()*5 + 4) + "s";
+
+        content.appendChild(flower);
+
+        setTimeout(()=>{
+
+            flower.remove();
+
+        },10000);
+
+    },180);
+
+    /* BRILLOS */
+
+    setInterval(()=>{
+
+        const sparkle =
+        document.createElement("div");
+
+        sparkle.classList.add("sparkle");
+
+        sparkle.innerHTML = "✨";
+
+        sparkle.style.left =
+        Math.random()*100 + "%";
+
+        sparkle.style.bottom =
+        "-20px";
+
+        sparkle.style.fontSize =
+        (Math.random()*15 + 10) + "px";
+
+        sparkle.style.animationDuration =
+        (Math.random()*3 + 2) + "s";
+
+        content.appendChild(sparkle);
+
+        setTimeout(()=>{
+
+            sparkle.remove();
+
+        },6000);
+
+    },250);
+
+}
+
+</script>
+
+</body>
+</html>
